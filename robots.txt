@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://oss-orgs.vercel.app/sitemap.xml

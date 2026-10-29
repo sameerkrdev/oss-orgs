@@ -179,3 +179,4 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .progs a + a { border-left: 1px solid var(--line); }
 .progs a.on { background: var(--ink); color: var(--bg); }
 @media (max-width: 560px) { .brand { display: none; } .seg.progs { flex: none; } }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

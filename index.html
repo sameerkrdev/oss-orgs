@@ -3,7 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OSS Programs Explorer</title>
+  <title>GSoC Organizations 2024–2026 | OSS Explorer</title>
+  <meta name="description" content="Browse every Google Summer of Code 2024–2026 organization: 253 orgs and 3,419 projects with tech stacks, repos, community channels, funding and contributor PRs.">
+  <link rel="canonical" href="https://oss-orgs.vercel.app/">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="OSS Explorer">
+  <meta property="og:title" content="GSoC Organizations 2024–2026 | OSS Explorer">
+  <meta property="og:description" content="Browse every Google Summer of Code 2024–2026 organization: 253 orgs and 3,419 projects with tech stacks, repos, community channels, funding and contributor PRs.">
+  <meta property="og:url" content="https://oss-orgs.vercel.app/">
+  <meta property="og:image" content="https://oss-orgs.vercel.app/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+    // ?p=lfx|sob picks the program: per-program title, description and canonical for search and link previews
+    const prog = new URLSearchParams(location.search).get("p");
+    const SEO = {
+      lfx: ["LFX Mentorship Projects 2024–2026 | OSS Explorer", "Browse LFX Mentorship 2024–2026: 83 Linux Foundation and CNCF projects and 484 mentee projects with repos, skills, mentors and merged PRs."],
+      sob: ["Summer of Bitcoin 2026 Organizations | OSS Explorer", "Browse Summer of Bitcoin 2026: 25 Bitcoin and Nostr open-source organizations with repos, tech stacks, mentors and alumni."],
+    }[prog];
+    if (SEO) {
+      document.title = SEO[0];
+      for (const [sel, attr, v] of [['meta[name="description"]', "content", SEO[1]], ['meta[property="og:title"]', "content", SEO[0]],
+        ['meta[property="og:description"]', "content", SEO[1]], ['meta[property="og:url"]', "content", "https://oss-orgs.vercel.app/?p=" + prog],
+        ['link[rel="canonical"]', "href", "https://oss-orgs.vercel.app/?p=" + prog]]) document.querySelector(sel).setAttribute(attr, v);
+    }
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "WebSite", "name": "OSS Explorer", "url": "https://oss-orgs.vercel.app/",
+   "description": "Explorer for Google Summer of Code, LFX Mentorship and Summer of Bitcoin organizations, plus company-backed open-source projects that hire."}
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,6 +49,8 @@
   </header>
 
   <main class="wrap">
+    <h1 class="sr" id="h1">Google Summer of Code organizations 2024–2026</h1>
+    <noscript><p>OSS Explorer lists every Google Summer of Code, LFX Mentorship and Summer of Bitcoin organization with its projects, tech stack, repository and community links. Turn on JavaScript to browse it, or see the <a href="https://github.com/sameerkrdev/oss-orgs">source and data on GitHub</a>.</p></noscript>
     <div class="toolbar">
       <input id="q" type="search" placeholder="Search orgs, projects, people, tech" autocomplete="off">
       <div class="seg" id="f-years"></div>
@@ -52,8 +82,7 @@
   </main>
 
   <script>
-    // ?p=lfx|sob picks the program; each data file sets window.DATA
-    const prog = new URLSearchParams(location.search).get("p");
+    // each data file sets window.DATA
     document.write(`<script src="data/${["lfx", "sob"].includes(prog) ? prog : "gsoc"}.js"><\/script>`);
   </script>
   <script src="app.js"></script>

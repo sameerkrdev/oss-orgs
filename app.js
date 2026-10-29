@@ -81,7 +81,7 @@
 
   // ---------- filters UI ----------
   $("#gen").textContent = `Data from ${P.sources} · updated ${D.generated}`;
-  document.title = `${P.title} Explorer`;
+  $("#h1").textContent = `${P.title} organizations ${[...new Set([D.years[0], D.years.at(-1)])].join("–")}`;
   document.querySelectorAll(".progs a").forEach((x) => x.classList.toggle("on", x.dataset.p === P.key));
   $("#f-years").innerHTML = D.years.map((y) => `<button data-y="${y}">${y}</button>`).join("");
   $("#f-cat").insertAdjacentHTML("beforeend", cats.map((c) => `<option>${esc(c)}</option>`).join(""));
