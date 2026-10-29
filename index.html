@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OSS Programs Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a href="#orgs" class="brand">OSS Explorer</a>
+      <nav class="seg progs"><a href="?p=gsoc" data-p="gsoc">GSoC</a><a href="?p=lfx" data-p="lfx">LFX</a><a href="?p=sob" data-p="sob">SoB</a></nav>
+      <nav class="tabs">
+        <a href="#orgs" data-tab="orgs">Organizations</a>
+        <a href="#people" data-tab="people">Contributors</a>
+        <a href="#insights" data-tab="insights">Insights</a>
+        <a href="oss.html">Hiring OSS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Search orgs, projects, people, tech" autocomplete="off">
+      <div class="seg" id="f-years"></div>
+      <select id="f-cat"><option value="">All categories</option></select>
+      <select id="f-sort">
+        <option value="name">A–Z</option>
+        <option value="projects">Most projects</option>
+        <option value="stars">Most stars</option>
+        <option value="years">Most years</option>
+      </select>
+      <details class="more-f">
+        <summary>Filters<span id="f-count"></span></summary>
+        <div class="more-f-body">
+          <label>Tech
+            <input id="f-tech-in" list="tech-list" placeholder="python, rust, react…">
+          </label>
+          <datalist id="tech-list"></datalist>
+          <div class="chips" id="f-techs"></div>
+          <div class="lbl">Community on</div>
+          <div class="chips" id="f-plats"></div>
+          <button id="reset" class="link">Clear all</button>
+        </div>
+      </details>
+    </div>
+    <p class="stats" id="stats"></p>
+    <div id="view"></div>
+    <div id="more" class="more"></div>
+    <footer class="foot" id="gen"></footer>
+  </main>
+
+  <script>
+    // ?p=lfx|sob picks the program; each data file sets window.DATA
+    const prog = new URLSearchParams(location.search).get("p");
+    document.write(`<script src="data/${["lfx", "sob"].includes(prog) ? prog : "gsoc"}.js"><\/script>`);
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

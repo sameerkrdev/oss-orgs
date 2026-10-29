@@ -11,7 +11,7 @@ Plain HTML/CSS/JS, no build step, no dependencies.
 
 ## View
 
-Open `index.html` in a browser (works from `file://`).
+`data/` is not committed (it holds contributor names and profile links); build it first with the commands under [Refresh data](#refresh-data), then open `index.html` in a browser (works from `file://`).
 
 - `index.html?p=gsoc` / `?p=lfx` / `?p=sob` switches program (also the header switch)
 - Tabs: Organizations, Contributors, Insights, Hiring OSS (`oss.html`)

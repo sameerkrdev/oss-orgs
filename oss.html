@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hiring OSS</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <a href="index.html#orgs" class="brand">OSS Explorer</a>
+      <nav class="seg progs"><a href="index.html?p=gsoc">GSoC</a><a href="index.html?p=lfx">LFX</a><a href="index.html?p=sob">SoB</a></nav>
+      <nav class="tabs">
+        <a href="index.html#orgs">Organizations</a>
+        <a href="index.html#people">Contributors</a>
+        <a href="index.html#insights">Insights</a>
+        <a href="oss.html" class="on">Hiring OSS</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="toolbar">
+      <input id="q" type="search" placeholder="Search projects, companies, topics" autocomplete="off">
+      <div class="seg" id="groups"></div>
+      <select id="sort">
+        <option value="stars">Most stars</option>
+        <option value="merged30">Most merged PRs (30d)</option>
+        <option value="gfi">Most good first issues</option>
+      </select>
+    </div>
+    <p class="stats" id="stats"></p>
+    <div id="view"></div>
+    <footer class="foot" id="gen"></footer>
+  </main>
+
+  <script src="data/oss.js"></script>
+  <script src="oss-app.js"></script>
+</body>
+</html>
