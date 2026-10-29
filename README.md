@@ -9,29 +9,86 @@ Static explorer for open-source mentorship programs and company-backed OSS proje
 
 Plain HTML/CSS/JS, no build step, no dependencies.
 
-## View
+Live: https://oss-orgs.vercel.app
 
-Live: https://oss-orgs.vercel.app (Vercel deploys every push to `main`; no build step).
-Locally, open `index.html` in a browser (works from `file://`).
+## Using the site
 
-- `index.html?p=gsoc` / `?p=lfx` / `?p=sob` switches program (also the header switch)
-- Tabs: Organizations, Contributors, Insights, Hiring OSS (`oss.html`)
-- Org detail: description, repo stats, languages, community channels, founders/funding (Wikidata, Open Collective, with sources), projects per year with contributors and PRs
+- Header switch **GSoC / LFX / SoB** picks the program (or `index.html?p=gsoc|lfx|sob`).
+- **Organizations**: search, filter by year, category, tech and community platform; sort by name, projects, stars or years. Click a card for the org page: description, repo stats, languages, community channels, founders/funding (with sources) and every project per year with its contributor and PRs.
+- **Contributors**: table of every contributor project with GitHub/LinkedIn/X (as they published them), PRs merged and final work. SoB shows its alumni list instead.
+- **Insights**: top tech, categories and orgs.
+- **Hiring OSS** (`oss.html`): company-backed projects by language with stars, merged PRs (30 days), good first issues, community channels and careers page.
 
-## Refresh data
+## Step-by-step guide
 
-Python 3.12+ stdlib only. GitHub calls use `gh auth token`, so log in with `gh auth login` first.
-Every HTTP response is cached in `cache/` (gitignored), so reruns are fast and resumable.
+### 1. Run it locally
 
+1. Clone the repo:
+   ```sh
+   git clone https://github.com/sameerkrdev/oss-orgs.git
+   cd oss-orgs
+   ```
+2. Open `index.html` in your browser (double-click it). That's it: the data is already in `data/`, and the pages work straight from disk with no server.
+3. Optional, if your browser blocks local files: serve the folder and open http://localhost:8000
+   ```sh
+   python -m http.server 8000
+   ```
+
+### 2. Refresh the data
+
+1. Install [Python 3.12+](https://www.python.org/downloads/) (no packages needed) and the [GitHub CLI](https://cli.github.com/).
+2. Log in to GitHub so the scripts get a token (higher API limits):
+   ```sh
+   gh auth login
+   ```
+3. Run the script for what you want to update:
+   ```sh
+   python -I fetch.py              # GSoC        -> data/gsoc.json + data/gsoc.js  (add --limit 5 for a quick test)
+   python -I programs.py lfx       # LFX         -> data/lfx.*
+   python -I programs.py sob       # SoB         -> data/sob.*
+   python -I oss_fetch.py          # Hiring OSS  -> data/oss.*
+   ```
+   Every HTTP response is cached in `cache/` (gitignored), so a stopped run resumes where it left off and reruns are fast. To pull fresh data, delete `cache/` first. A cold `fetch.py` run takes about an hour (GitHub search allows 30 requests/min).
+4. Check the result:
+   ```sh
+   python -I check.py              # prints "ok ..." or fails with the broken assert
+   ```
+5. Reload `index.html` to see the new data.
+
+### 3. Deploy to Vercel
+
+The site is plain static files: no build command, no framework.
+
+1. Push the repo to GitHub (with `data/` committed).
+2. Go to https://vercel.com/new, sign in with GitHub and **Import** the repo.
+3. Settings on the import screen:
+   - Framework Preset: **Other**
+   - Build Command: leave empty
+   - Output Directory: leave empty (root `.`)
+4. Click **Deploy**. You get a URL like `https://<project>.vercel.app`.
+5. From now on every push to `main` redeploys automatically.
+
+`.vercelignore` keeps `cache/`, the Python scripts and logs out of the upload.
+
+Deploy without GitHub instead (uploads your local folder):
 ```sh
-python -I fetch.py              # GSoC  -> data/gsoc.json + data/gsoc.js   (--limit N for a smoke run)
-python -I programs.py lfx       # LFX   -> data/lfx.*
-python -I programs.py sob       # SoB   -> data/sob.*
-python -I oss_fetch.py          # Hiring OSS -> data/oss.*
-python -I check.py              # self-check: parsers + GSoC counts match the API
+npx vercel login
+npx vercel deploy --prod
 ```
 
-A cold run of `fetch.py` takes about an hour (GitHub search API allows 30 requests/min).
+### 4. Update the live site
+
+```sh
+python -I programs.py lfx          # 1. refresh whichever data you need
+python -I check.py                 # 2. self-check
+git add data
+git commit -m "Refresh data"       # 3. commit
+git push                           # 4. Vercel redeploys in ~30 s
+```
+
+### 5. Optional: limit who can see it
+
+The site shows contributor names and profile links. To make it private: Vercel → Project → Settings → **Deployment Protection** → enable Vercel Authentication (free) or Password Protection (Pro).
 
 ## Files
 
