@@ -55,40 +55,37 @@ Live: https://oss-orgs.onrender.com
    ```
 5. Reload `index.html` to see the new data.
 
-### 3. Deploy to Vercel
+### 3. Deploy to Render
 
 The site is plain static files: no build command, no framework.
 
 1. Push the repo to GitHub (with `data/` committed).
-2. Go to https://vercel.com/new, sign in with GitHub and **Import** the repo.
-3. Settings on the import screen:
-   - Framework Preset: **Other**
-   - Build Command: leave empty
-   - Output Directory: leave empty (root `.`)
-4. Click **Deploy**. You get a URL like `https://<project>.vercel.app`.
+2. Go to https://dashboard.render.com, sign in with GitHub, click **New +** → **Static Site** and pick the repo.
+3. Settings:
+   - Branch: `main`
+   - Root Directory: leave empty
+   - Build Command: leave empty (or `echo ok` if the form requires one)
+   - Publish Directory: `.`
+4. Click **Create Static Site**. You get a URL like `https://<name>.onrender.com`.
 5. From now on every push to `main` redeploys automatically.
 
-`.vercelignore` keeps `cache/`, the Python scripts and logs out of the upload.
+If you deploy under a different URL, replace `oss-orgs.onrender.com` in `index.html`, `oss.html`, `robots.txt` and `sitemap.xml`.
 
-Deploy without GitHub instead (uploads your local folder):
-```sh
-npx vercel login
-npx vercel deploy --prod
-```
+### 4. Get it on Google
 
-### 4. Update the live site
+1. Open [Google Search Console](https://search.google.com/search-console) → **Add property** → **URL prefix** → your site URL.
+2. Choose the **HTML tag** method and put the `google-site-verification` meta tag in the `<head>` of `index.html`, push, then click **Verify**.
+3. Go to **Sitemaps** and submit `sitemap.xml`.
+
+### 5. Update the live site
 
 ```sh
 python -I programs.py lfx          # 1. refresh whichever data you need
 python -I check.py                 # 2. self-check
 git add data
 git commit -m "Refresh data"       # 3. commit
-git push                           # 4. Vercel redeploys in ~30 s
+git push                           # 4. Render redeploys in about a minute
 ```
-
-### 5. Optional: limit who can see it
-
-The site shows contributor names and profile links. To make it private: Vercel → Project → Settings → **Deployment Protection** → enable Vercel Authentication (free) or Password Protection (Pro).
 
 ## Files
 
