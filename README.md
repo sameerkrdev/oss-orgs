@@ -9,7 +9,7 @@ Static explorer for open-source mentorship programs and company-backed OSS proje
 
 Plain HTML/CSS/JS, no build step, no dependencies.
 
-Live: https://oss-orgs.onrender.com
+Live: https://oss.sameerkr.dev
 
 ## Using the site
 
@@ -69,7 +69,7 @@ The site is plain static files: no build command, no framework.
 4. Click **Create Static Site**. You get a URL like `https://<name>.onrender.com`.
 5. From now on every push to `main` redeploys automatically.
 
-If you deploy under a different URL, replace `oss-orgs.onrender.com` in `index.html`, `oss.html`, `robots.txt` and `sitemap.xml`.
+If you deploy under a different URL, replace `oss.sameerkr.dev` in `index.html`, `oss.html`, `robots.txt` and `sitemap.xml`.
 
 ### 4. Get it on Google
 
