@@ -9,7 +9,7 @@ Static explorer for open-source mentorship programs and company-backed OSS proje
 
 Plain HTML/CSS/JS, no build step, no dependencies.
 
-Live: https://oss-orgs.vercel.app
+Live: https://oss-orgs.onrender.com
 
 ## Using the site
 
