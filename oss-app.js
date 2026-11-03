@@ -20,7 +20,7 @@
   const S = { q: "", group: "", sort: "stars" };
   for (const g of D.groups) for (const p of g.projects) {
     p._g = g.title;
-    p._text = [p.repo, p.desc, p.backer, p.lang, ...p.topics].join(" ").toLowerCase();
+    p._text = [p.repo, p.desc, p.backer, p.lang, p.kw, ...p.topics].join(" ").toLowerCase();
   }
 
   $("#gen").textContent = `GitHub data as of ${D.generated} · merged PRs counted since ${D.since} · careers links checked to load`;

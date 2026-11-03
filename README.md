@@ -5,7 +5,7 @@ Static explorer for open-source mentorship programs and company-backed OSS proje
 - **GSoC** (Google Summer of Code) 2024–2026: 253 orgs, 3,419 contributor projects
 - **LFX Mentorship** 2024–2026: 83 orgs, 484 mentee projects
 - **Summer of Bitcoin** 2026: 25 orgs, mentors, 75 alumni
-- **Hiring OSS**: 280 company-backed projects (Go, JS/TS, Python, Rust, Java/Kotlin, C/C++) with PR activity, starter issues and careers links
+- **Hiring OSS**: 400+ company-backed projects (Go, JS/TS, Python, Rust, Java/Kotlin, C/C++) with PR activity, starter issues and careers links
 
 Plain HTML/CSS/JS, no build step, no dependencies.
 
